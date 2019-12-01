@@ -23,6 +23,11 @@ target/
 .classpath
 .project
 
+# Plugins 
+
+.recommenders
+.sonarlint
+
 # OS
 .DS_Store
 
