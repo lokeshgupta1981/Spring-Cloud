@@ -1,0 +1,38 @@
+server:
+  #ssl:
+   #   key-password: changeit
+    #  key-store: ${keystore_jks}
+     # key-store-type: JKS
+  #port: 8443
+  port: 8888
+
+
+spring:
+  security:
+    enabled: false
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/kambalavijay/config-store.git
+          default-label: main
+          search-paths: '{application},{application}/{profile}'
+          basedir: /Users/kvijay9/Desktop/sample-repo
+          force-pull: true
+          cloneOnStart: true
+          skipSslValidation: true
+          timeout: 20000
+          username: kviay9
+          password: 8fd95fd85f7045439caa40ee553a83641118c3ec
+  profiles:
+    active: dev
+
+management:
+  info:
+    git:
+      mode: simple  # To expose more git properties via /info endpoint, use "full" mode.
+  #port: 8080
+  #ssl:
+   # enabled: false
