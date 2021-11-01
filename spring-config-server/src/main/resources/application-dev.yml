@@ -20,12 +20,12 @@ spring:
           default-label: main
           search-paths: '{application},{application}/{profile}'
           basedir: /Users/kvijay9/Desktop/sample-repo
-          force-pull: true
-          cloneOnStart: true
+          cloneOnStart: false
           skipSslValidation: true
           timeout: 20000
-          username: kviay9
-          password: 8fd95fd85f7045439caa40ee553a83641118c3ec
+          username: kambalavijay
+          password: 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
+          force-pull: true
   profiles:
     active: dev
 
