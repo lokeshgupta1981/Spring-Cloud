@@ -1,6 +1,8 @@
 package com.example.springcloudawss3.web;
 
-import com.example.springcloudawss3.service.S3Service;
+import com.example.springcloudawss3.service.S3ClientService;
+import com.example.springcloudawss3.service.S3TemplateService;
+import io.awspring.cloud.s3.S3Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
@@ -13,11 +15,14 @@ import java.io.IOException;
 @RequestMapping("/s3")
 public class S3Controller {
 
-    private final S3Service s3Service;
+    private final S3ClientService s3ClientService;
+
+    private final S3TemplateService s3TemplateService ;
 
     @Autowired
-    public S3Controller(S3Service s3Service) {
-        this.s3Service = s3Service;
+    public S3Controller(S3ClientService s3ClientService, S3TemplateService s3TemplateService) {
+        this.s3ClientService = s3ClientService;
+        this.s3TemplateService = s3TemplateService;
     }
     // tested
     @PostMapping("/bucket")
@@ -25,8 +30,8 @@ public class S3Controller {
                                              @RequestParam("bucketName") String bucketName )
     {
         try {
-            // s3Service.createBucket(bucketName); with S3Client
-            s3Service.createBucketWithS3Template(bucketName); // with S3Template
+            // s3ClientService.createBucket(bucketName); with S3Client
+            s3TemplateService.createBucketWithS3Template(bucketName); // with S3Template
             return ResponseEntity.ok("bucket created successfully .");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Failed to create bucket with main reason: " + e.getMessage());
@@ -38,8 +43,8 @@ public class S3Controller {
                                              @RequestParam("bucketName") String bucketName,
                                              @RequestParam("key") String key) {
         try {
-            // s3Service.uploadObject(bucketName, key, file);  with S3Clienr
-            s3Service.uploadObjectWithS3Template(bucketName ,key , file);
+            // s3ClientService.uploadObject(bucketName, key, file);  with S3Clienr
+            s3TemplateService.uploadObjectWithS3Template(bucketName ,key , file);
             return ResponseEntity.ok("File uploaded successfully.");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Failed to upload file: " + e.getMessage());
@@ -52,7 +57,7 @@ public class S3Controller {
                                              @RequestParam("key") String key) {
         try {
             // s3Service.deleteObject(bucketName, key); with S3Client
-            s3Service.deleteObjectWithS3Template(bucketName , key);
+            s3TemplateService.deleteObjectWithS3Template(bucketName , key);
             return ResponseEntity.ok("File deleted successfully.");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Failed to delete file: " + e.getMessage());
@@ -60,16 +65,23 @@ public class S3Controller {
     }
 
     @GetMapping("/read")
-    public ResponseEntity<String> readFileFromS3(@RequestParam("bucketName") String bucketName,
-                                             @RequestParam("key") String key) throws IOException {
-        return ResponseEntity.ok().body( s3Service.readFileFromS3(bucketName ,key));
+    public ResponseEntity<S3Resource> readFileFromS3(@RequestParam("bucketName") String bucketName,
+                                                     @RequestParam("key") String key) throws IOException {
+       //  s3ClientService.readFileFromS3(bucketName, key); with S3Client
+        return ResponseEntity.ok().body( s3TemplateService.readFileFromS3WithS3Template(bucketName ,key));
     }
 
     @GetMapping("/resource")
     public ResponseEntity<Resource> readS3ObjectAsResource(@RequestParam("bucketName") String bucketName,
                                                            @RequestParam("key") String key) throws IOException {
-        return ResponseEntity.ok().body( s3Service.readFileFromS3WithS3Template(bucketName ,key));
+        return ResponseEntity.ok().body( s3TemplateService.readFileFromS3WithS3Template(bucketName ,key));
     }
+
+    @GetMapping("/test")
+    public ResponseEntity<String> getResource() throws IOException {
+        return ResponseEntity.ok().body( s3ClientService.getResource());
+    }
+
 
 
 
