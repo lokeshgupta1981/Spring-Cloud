@@ -21,7 +21,7 @@ public class Config {
        return S3Client.builder()
                 .region(Region.US_EAST_1)
                 .credentialsProvider(StaticCredentialsProvider.create(
-                        AwsBasicCredentials.create("AKIA5VREHDWTGF66WKXP", "cxubtrhVLHU3ONJ6RtBLrewa7t8Uyy7TalrY3Jrr"))).build();
+                        AwsBasicCredentials.create("AKIAVSFK53MGYEY4P4Y3", "HW7FS0o2H4S06fEoXwbZGbaqXhtGfFk8tPHa7zgh"))).build();
     }
     @Bean
     public S3Template s3Template(){

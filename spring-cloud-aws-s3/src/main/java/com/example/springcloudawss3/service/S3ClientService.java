@@ -1,10 +1,8 @@
 package com.example.springcloudawss3.service;
 
-import io.awspring.cloud.s3.InMemoryBufferingS3OutputStreamProvider;
-import io.awspring.cloud.s3.S3OutputStreamProvider;
 import io.awspring.cloud.s3.S3Resource;
 import io.awspring.cloud.s3.S3Template;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,16 +16,16 @@ import java.io.IOException;
 import java.io.InputStream;
 
 @Service
-public class S3Service {
+public class S3ClientService {
 
 
 
+    @Value("s3://howtodoinjava03/12345678910")
+    private Resource s3Resource;
 
-    private S3Template s3Template ;
     private final S3Client  s3Client;
 
-    public S3Service(S3Client s3Client , S3Template s3Template) {
-        this.s3Template = s3Template ;
+    public S3ClientService(S3Client s3Client ) {
         this.s3Client = s3Client;
     }
 
@@ -38,9 +36,6 @@ public class S3Service {
                 .build();
 
        s3Client.createBucket(createBucketRequest);
-    }
-    public void createBucketWithS3Template(String bucketName) {
-        s3Template.createBucket(bucketName);
     }
 
     public void uploadObject(String bucketName, String key, MultipartFile file) throws IOException {
@@ -53,11 +48,6 @@ public class S3Service {
 
         s3Client.putObject(putObjectRequest, RequestBody.fromInputStream(inputStream, bytes.length));
     }
-    public void uploadObjectWithS3Template(String bucketName, String key, MultipartFile file) throws IOException {
-        byte[] bytes = file.getBytes();
-        InputStream inputStream = new ByteArrayInputStream(bytes);
-        s3Template.upload(bucketName,key , inputStream);
-    }
     public void deleteObject(String bucketName, String key) {
         DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
                 .bucket(bucketName)
@@ -66,23 +56,24 @@ public class S3Service {
 
         s3Client.deleteObject(deleteObjectRequest);
     }
-    public void deleteObjectWithS3Template(String bucketName, String key) {
-        s3Template.deleteObject(bucketName , key);
-    }
     public String readFileFromS3(String bucketName, String objectKey) throws IOException {
         GetObjectRequest getObjectRequest = GetObjectRequest.builder()
                 .bucket(bucketName)
                 .key(objectKey)
                 .build();
 
-        ResponseInputStream  response = s3Client.getObject(getObjectRequest);
+        ResponseInputStream<GetObjectResponse> response = s3Client.getObject(getObjectRequest);
         return  new String(response.readAllBytes());
     }
-    public S3Resource readFileFromS3WithS3Template(String bucketName, String objectKey) throws IOException {
-      return s3Template.download(bucketName , objectKey);
+    public String getResource() throws IOException {
+        try (InputStream inputStream = s3Resource.getInputStream()) {
+            // Read the content from the S3 object
+            // ...
+            return new String(inputStream.readAllBytes());
+        }
     }
     public Resource readS3ObjectAsResource(String bucketName, String objectKey) {
-        return new S3Resource( bucketName ,objectKey ,s3Client ,new InMemoryBufferingS3OutputStreamProvider(s3Client , null));
+        return s3Resource ;
     }
 
 }
