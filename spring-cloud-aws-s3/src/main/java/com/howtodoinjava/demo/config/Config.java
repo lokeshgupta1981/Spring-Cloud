@@ -1,4 +1,4 @@
-package com.example.springcloudawss3.config;
+package com.howtodoinjava.demo.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.awspring.cloud.s3.InMemoryBufferingS3OutputStreamProvider;

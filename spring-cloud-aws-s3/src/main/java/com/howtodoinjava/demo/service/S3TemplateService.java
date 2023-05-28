@@ -1,4 +1,4 @@
-package com.example.springcloudawss3.service;
+package com.howtodoinjava.demo.service;
 
 import io.awspring.cloud.s3.S3Resource;
 import io.awspring.cloud.s3.S3Template;

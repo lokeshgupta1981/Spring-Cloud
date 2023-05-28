@@ -1,7 +1,7 @@
-package com.example.springcloudawss3.web;
+package com.howtodoinjava.demo.web;
 
-import com.example.springcloudawss3.service.S3ClientService;
-import com.example.springcloudawss3.service.S3TemplateService;
+import com.howtodoinjava.demo.service.S3ClientService;
+import com.howtodoinjava.demo.service.S3TemplateService;
 import io.awspring.cloud.s3.S3Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
