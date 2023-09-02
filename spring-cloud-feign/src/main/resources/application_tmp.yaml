@@ -1,0 +1,12 @@
+logging.level.com.howtodoinjava.feign.client.AccountFeignClient: DEBUG
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            authorization-grant-type: client_credentials
+            client-id: 48dd2108a806d7b2ae1f
+            client-secret: 9f0fbfaa3da4cb643e661693ce9274a954db7bbe
+            token-uri: https://github.com/login/oauth/access_token
