@@ -5,6 +5,7 @@ import feign.Response;
 public class BadRequestException extends Exception {
 
 	public BadRequestException(Response response) {
+		super(response.reason());
 	}
 
 }

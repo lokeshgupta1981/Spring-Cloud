@@ -1,10 +1,9 @@
 package com.howtodoinjava.feign.client;
 
-import org.springframework.http.HttpStatusCode;
-
 import feign.Response;
 import feign.RetryableException;
 import feign.codec.ErrorDecoder;
+import org.springframework.http.HttpStatusCode;
 
 public class CustomErrorDecoder implements ErrorDecoder {
 	@Override

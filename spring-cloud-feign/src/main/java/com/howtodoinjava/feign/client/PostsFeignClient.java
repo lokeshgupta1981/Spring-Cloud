@@ -1,10 +1,8 @@
 package com.howtodoinjava.feign.client;
 
-import java.util.List;
-
 import com.howtodoinjava.feign.dto.Post;
-
 import feign.RequestLine;
+import java.util.List;
 
 //@FeignClient(value = "postsFeignClient", url = "https://jsonplaceholder.typicode.com/")
 public interface PostsFeignClient {

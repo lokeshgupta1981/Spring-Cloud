@@ -1,12 +1,11 @@
 package com.howtodoinjava.feign.client;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.http.client.support.BasicAuthenticationInterceptor;
-
 import feign.Logger;
 import feign.Retryer;
 import feign.codec.ErrorDecoder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.client.support.BasicAuthenticationInterceptor;
 
 @Configuration
 public class FeignConfiguration {
