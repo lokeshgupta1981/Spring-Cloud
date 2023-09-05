@@ -1,4 +1,4 @@
-package com.howtodoinjava.feign.client;
+package com.howtodoinjava.feign.config;
 
 import static java.util.Objects.isNull;
 

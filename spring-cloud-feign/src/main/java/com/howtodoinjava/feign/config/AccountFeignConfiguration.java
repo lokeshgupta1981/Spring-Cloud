@@ -1,4 +1,4 @@
-package com.howtodoinjava.feign.client;
+package com.howtodoinjava.feign.config;
 
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClients;

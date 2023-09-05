@@ -29,7 +29,7 @@ public class FeignController {
 
   @GetMapping(value = "/users")
   public List<User> getAllUsers() {
-    return accountFeignClient.getUsers();
+    return accountFeignClient.getUsers().getBody();
   }
 
   @GetMapping(value = "/posts")

@@ -1,4 +1,4 @@
-package com.howtodoinjava.feign.client;
+package com.howtodoinjava.feign.config;
 
 import feign.RequestInterceptor;
 import org.springframework.context.annotation.Bean;

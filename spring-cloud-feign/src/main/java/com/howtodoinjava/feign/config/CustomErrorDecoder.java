@@ -1,4 +1,4 @@
-package com.howtodoinjava.feign.client;
+package com.howtodoinjava.feign.config;
 
 import feign.Response;
 import feign.RetryableException;
