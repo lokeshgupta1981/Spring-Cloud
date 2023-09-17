@@ -14,33 +14,27 @@ import java.time.OffsetDateTime;
 @Service
 public class MessageReceiver {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(MessageReceiver.class);
 
-    @Autowired
-    private SqsTemplate sqsTemplate;
+  @Autowired
+  private SqsTemplate sqsTemplate;
 
+  @SqsListener("HowToDoInJava")
+  public void listen(Message<?> message) {
+    /*
+     * LOGGER.info("Message received on listen method at {}", OffsetDateTime.now());
+     * LOGGER.info("Processing Failed", OffsetDateTime.now());
+     *  int x = 5 / 0 ; // Exception
+     *  Acknowledgement.acknowledge(message);
+     */
+    LOGGER.info("Message received on listen method at {}", OffsetDateTime.now());
+    Acknowledgement.acknowledge(message);
+  }
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MessageReceiver.class);
-
-    @SqsListener("HowToDoInJava" )
-    public void listen(Message<?> message) {
-        /*
-        * LOGGER.info("Message received on listen method at {}", OffsetDateTime.now());
-        * LOGGER.info("Processing Failed", OffsetDateTime.now());
-        *  int x = 5 / 0 ; // Exception
-        *  Acknowledgement.acknowledge(message);
-        */
-        LOGGER.info("Message received on listen method at {}", OffsetDateTime.now());
-        Acknowledgement.acknowledge(message);
-    }
-
-
-    // this method should be called in an infinite loop
+  // this method should be called in an infinite loop
    /*
    public void receive(){
         sqsTemplate
                 .receive(from -> from.queue("HowToDoInJava") );
     }*/
-
-
-
 }

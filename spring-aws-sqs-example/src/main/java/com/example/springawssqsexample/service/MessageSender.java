@@ -7,19 +7,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class MessageSender {
 
-    @Autowired
-    private SqsTemplate sqsTemplate;
+  @Autowired
+  private SqsTemplate sqsTemplate;
 
+  public void sendMessage(String message) {
 
-    public void sendMessage(String message) {
-
-        sqsTemplate
-                .send(sqsSendOptions ->
-                        sqsSendOptions
-                                .queue("HowToDoInJava")
-                                .payload(message)
-                );
-    }
-
-
+    sqsTemplate
+    .send(sqsSendOptions ->
+        sqsSendOptions
+            .queue("HowToDoInJava")
+            .payload(message)
+    );
+  }
 }
